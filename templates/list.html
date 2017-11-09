@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+  {% for prof in user %}
+    <h1>{{ prof.name }}</h1>
+    <h2>Designation : {{ prof.designation }}</h2>
+    <h2>Department of {{ prof.department }}</h2>
+    <h2>Room No : {{ prof.room_no }}</h2>
+  {% endfor %}
+{% endblock %}
