@@ -23,7 +23,7 @@ for r in range(1993, (datetime.datetime.now().year+1)):
 
 
 class TeachingDetails(models.Model):
-    username = models.ForeignKey(User, on_delete=models.CASCADE, related_name='username')
+    username = models.ForeignKey(User, on_delete=models.CASCADE)
     year=models.CharField(max_length=10, choices=YEAR_CHOICES)
     semester = models.CharField(max_length=100, choices=SEM_CHOICES)
     course_name = models.CharField(max_length=255)
