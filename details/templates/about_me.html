@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>{{user.name}}</h2>
+  <h3>designation : {{user.designation}}</h3>
+  <h3>Office : {{user.office}}</h3>
+  <h3>department of {{user.department}}</h3>
+  <h3>institute {{user.institute}}</h3>
+  <a href = "{% url 'details:about_me' %}edit">
+    <button type="button" class="btn btn-primary" name="button">Edit</button>
+  </a>
+{% endblock %}
