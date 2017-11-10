@@ -3,3 +3,7 @@ from . import models
 
 admin.site.register(models.ProfileDetails)
 admin.site.register(models.TeachingDetails)
+admin.site.register(models.ProjectDetails)
+admin.site.register(models.RecognitionDetails)
+admin.site.register(models.PublicationDetails)
+admin.site.register(models.StudentsDetails)

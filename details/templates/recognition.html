@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+#tab { display:inline-block;
+     margin-left: 40px; }
+</style>
+<ul>
+<li>{% for sub in users %}
+  <h2>{{sub.heading}}</h2>
+  <h3 id="tab">{{sub.description}}</h3>
+  {% endfor %}
+</li>
+</ul>
+  <a href = "{% url 'details:recognition' %}add">
+    <button type="button" class="btn btn-primary" name="button">Add</button>
+  </a>
+{% endblock %}

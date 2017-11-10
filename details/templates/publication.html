@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+#tab { display:inline-block;
+     margin-left: 40px; }
+</style>
+<ul>
+<li>{% for sub in users %}
+  <h2>{{sub.title}}</h2>
+  <h3 id="tab">{{sub.Authors}}</h3>
+  <h3 id="tab">{{sub.journal}}</h3>
+  <h3 id="tab">{{sub.journal_volume}}</h3>
+  <h3 id="tab">{{sub.page_no}}</h3>
+  <h3 id="tab">{{sub.publish_date}}</h3>
+  {% endfor %}
+</li>
+</ul>
+  <a href = "{% url 'details:publication' %}add">
+    <button type="button" class="btn btn-primary" name="button">Add</button>
+  </a>
+{% endblock %}
