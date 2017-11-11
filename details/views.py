@@ -53,8 +53,8 @@ def Teaching(request):
     return render(request, 'teaching.html', context)
 
 @login_required
-def Teaching_Edit(request):
-    instance = models.TeachingDetails.objects.get(username__username=request.user.username)
+def Teaching_Edit(request, pk):
+    instance = TeachingDetails.objects.get(pk=pk)
     form = TeachingForm(request.POST or None, instance=instance)
     if form.is_valid():
           form.save()
@@ -86,8 +86,8 @@ def Project(request):
     return render(request, 'project.html', context)
 
 @login_required
-def Project_Edit(request):
-    instance = models.ProjectDetails.objects.get(username__username=request.user.username)
+def Project_Edit(request, pk):
+    instance = models.ProjectDetails.objects.get(pk=pk)
     form = ProjectForm(request.POST or None, instance=instance)
     if form.is_valid():
           form.save()
