@@ -6,10 +6,10 @@
   <h3>Office : {{sub.course_name}}</h3>
   <h3>department of {{sub.course_description}}</h3>
   <a href="{% url 'details:teaching_edit' pk=sub.pk %}">
-    <button type="button" class="btn btn-primary" name="button">Edit</button>
+    <button type="button" class="btn btn-success" name="button">Edit</button>
   </a>
   {% endfor %}
   <a href = "{% url 'details:students' %}add">
-    <button type="button" class="btn btn-primary" name="button">Add</button>
+    <button type="button" class="btn btn-success" name="button">Add</button>
   </a>
 {% endblock %}
