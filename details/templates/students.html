@@ -1,7 +1,7 @@
 {% extends "dashboard.html" %}
 {% block content %}
   {% for sub in users %}
-  <h2>{{sub.year}}</h2>
+  <h2>{{sub.student_status}}</h2>
   <h3>designation : {{sub.semester}}</h3>
   <h3>Office : {{sub.course_name}}</h3>
   <h3>department of {{sub.course_description}}</h3>
@@ -9,7 +9,7 @@
     <button type="button" class="btn btn-primary" name="button">Edit</button>
   </a>
   {% endfor %}
-  <a href = "{% url 'details:teaching' %}add">
+  <a href = "{% url 'details:students' %}add">
     <button type="button" class="btn btn-primary" name="button">Add</button>
   </a>
 {% endblock %}

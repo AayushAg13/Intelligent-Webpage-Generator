@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "dashboard.html" %}
 {% block content %}
   {% for sub in users %}
   <h2>{{sub.project_title}}</h2>
@@ -6,7 +6,7 @@
   <h3>{{sub.pi}}</h3>
   <h3>{{sub.co_pi}}</h3>
   <h3>{{ sub.funding_agency }}</h3>
-  <h3>{{ sub.start_year }}</h3> 
+  <h3>{{ sub.start_year }}</h3>
   <h3>{{ sub.end_year }}</h3>
 
   {% endfor %}
