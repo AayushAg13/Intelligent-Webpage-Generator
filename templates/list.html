@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-  {% for prof in user %}
+  {% for prof in users %}
     <h1>{{ prof.name }}</h1>
     <h2>Designation : {{ prof.designation }}</h2>
     <h2>Department of {{ prof.department }}</h2>
     <h2>Office : {{ prof.office }}</h2>
+    <a href="{% url 'profile_page' username=prof.username %}"><button type="button" name="button">Profile Page</button></a>
   {% endfor %}
 {% endblock %}

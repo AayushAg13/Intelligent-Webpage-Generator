@@ -8,7 +8,7 @@ class AboutForm(ModelForm):
         fields = ("name","designation","department","institute",
         "office","email","phone", "date_of_birth")
         widgets = {
-            'date_of_birth': forms.TextInput(attrs={'class': 'hasDatepicker'}),
+            'date_of_birth': forms.TextInput(attrs={'class': ''}),
         }
 
 class TeachingForm(ModelForm):

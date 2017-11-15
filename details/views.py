@@ -73,6 +73,11 @@ def Teaching_Add(request):
     return render(request,'teaching_add.html',{'form':form})
 
 @login_required
+def Teaching_Delete(request, pk):
+    instance = TeachingDetails.objects.get(pk=pk).delete()
+    return redirect('/test/teaching')
+
+@login_required
 def Project(request):
     user_name = request.user.username
     try:
@@ -87,7 +92,7 @@ def Project(request):
 
 @login_required
 def Project_Edit(request, pk):
-    instance = models.ProjectDetails.objects.get(pk=pk)
+    instance = ProjectDetails.objects.get(pk=pk)
     form = ProjectForm(request.POST or None, instance=instance)
     if form.is_valid():
           form.save()
@@ -106,6 +111,11 @@ def Project_Add(request):
     return render(request,'project_add.html',{'form':form})
 
 @login_required
+def Project_Delete(request, pk):
+    instance = ProjectDetails.objects.get(pk=pk).delete()
+    return redirect('/test/project')
+
+@login_required
 def Recognition(request):
     user_name = request.user.username
     try:
@@ -119,8 +129,8 @@ def Recognition(request):
     return render(request, 'recognition.html', context)
 
 @login_required
-def Recognition_Edit(request):
-    instance = models.RecognitionDetails.objects.get(username__username=request.user.username)
+def Recognition_Edit(request, pk):
+    instance = RecognitionDetails.objects.get(pk=pk)
     form = RecognitionForm(request.POST or None, instance=instance)
     if form.is_valid():
           form.save()
@@ -139,6 +149,11 @@ def Recognition_Add(request):
     return render(request,'recognition_add.html',{'form':form})
 
 @login_required
+def Recognition_Delete(request, pk):
+    instance = RecognitionDetails.objects.get(pk=pk).delete()
+    return redirect('/test/recognition')
+
+@login_required
 def Publication(request):
     user_name = request.user.username
     try:
@@ -152,8 +167,8 @@ def Publication(request):
     return render(request, 'publication.html', context)
 
 @login_required
-def Publication_Edit(request):
-    instance = models.PublicationDetails.objects.get(username__username=request.user.username)
+def Publication_Edit(request, pk):
+    instance = PublicationDetails.objects.get(pk=pk)
     form = PublicationForm(request.POST or None, instance=instance)
     if form.is_valid():
           form.save()
@@ -172,6 +187,11 @@ def Publication_Add(request):
     return render(request,'publication_add.html',{'form':form})
 
 @login_required
+def Publication_Delete(request, pk):
+    instance = PublicationDetails.objects.get(pk=pk).delete()
+    return redirect('/test/publication')
+
+@login_required
 def Students(request):
     user_name = request.user.username
     try:
@@ -185,8 +205,8 @@ def Students(request):
     return render(request, 'students.html', context)
 
 @login_required
-def Students_Edit(request):
-    instance = models.StudentsDetails.objects.get(username__username=request.user.username)
+def Students_Edit(request, pk):
+    instance = StudentsDetails.objects.get(pk=pk)
     form = StudentsForm(request.POST or None, instance=instance)
     if form.is_valid():
           form.save()
@@ -203,3 +223,8 @@ def Students_Add(request):
         temp.save()
         return redirect('/test/students')
     return render(request,'students_add.html',{'form':form})
+
+@login_required
+def Students_Delete(request, pk):
+    instance = StudentsDetails.objects.get(pk=pk).delete()
+    return redirect('/test/students')

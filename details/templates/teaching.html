@@ -8,6 +8,9 @@
   <a href="{% url 'details:teaching_edit' pk=sub.pk %}">
     <button type="button" class="btn btn-primary" name="button">Edit</button>
   </a>
+  <a href="{% url 'details:teaching_delete' pk=sub.pk %}">
+    <button type="button" class="btn btn-primary" name="button">Delete</button>
+  </a>
   {% endfor %}
   <a href = "{% url 'details:teaching' %}add">
     <button type="button" class="btn btn-primary" name="button">Add</button>

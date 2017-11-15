@@ -26,4 +26,10 @@ urlpatterns = [
     url(r"^thanks/$", views.ThanksPage.as_view(), name="thanks"),
     url(r"^list/$", views.List ,name='list'),
     url(r"^test/", include("details.urls")),
+    url(r"^profile/(?P<username>\w+)/$", views.ProfilePage, name="profile_page"),
+    url(r"^profile/(?P<username>\w+)/teaching$", views.ProfileTeachingPage, name="profile_teaching"),
+    url(r"^profile/(?P<username>\w+)/student$", views.ProfileStudentPage, name="profile_student"),
+    url(r"^profile/(?P<username>\w+)/project$", views.ProfileProjectPage, name="profile_project"),
+    url(r"^profile/(?P<username>\w+)/publication$", views.ProfilePublicationPage, name="profile_publication"),
+    url(r"^profile/(?P<username>\w+)/recognition$", views.ProfileRecognitionPage, name="profile_recognition"),
 ]
