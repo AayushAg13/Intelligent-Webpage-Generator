@@ -9,6 +9,16 @@ urlpatterns = [
     url(r"^about_me/edit$", views.About_Me_Edit,name='about_me_edit'),
     url(r"^about_me/create$", views.About_Me_Create, name='about_me_create'),
 
+    url(r"^education/$", views.Education,name='education'),
+    url(r'^education/(?P<pk>\d+)/edit$', views.Education_Edit, name='education_edit'),
+    url(r"^education/add$", views.Education_Add, name='education_add'),
+    url(r'^education/(?P<pk>\d+)/delete$', views.Education_Delete, name='education_delete'),
+
+    url(r"^work/$", views.Work,name='work'),
+    url(r'^work/(?P<pk>\d+)/edit$', views.Work_Edit, name='work_edit'),
+    url(r"^work/add$", views.Work_Add, name='work_add'),
+    url(r'^work/(?P<pk>\d+)/delete$', views.Work_Delete, name='work_delete'),
+
     url(r"^teaching/$", views.Teaching,name='teaching'),
     url(r'^teaching/(?P<pk>\d+)/edit$', views.Teaching_Edit, name='teaching_edit'),
     url(r"^teaching/add$", views.Teaching_Add, name='teaching_add'),

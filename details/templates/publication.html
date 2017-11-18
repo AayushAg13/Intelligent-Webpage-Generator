@@ -1,27 +1,46 @@
 {% extends "dashboard.html" %}
-{% block content %}
-<style>
-#tab { display:inline-block;
-     margin-left: 40px; }
-</style>
-<ul>
-<li>{% for sub in users %}
-  <h2>{{sub.title}}</h2>
-  <h3 id="tab">{{sub.Authors}}</h3>
-  <h3 id="tab">{{sub.journal}}</h3>
-  <h3 id="tab">{{sub.journal_volume}}</h3>
-  <h3 id="tab">{{sub.page_no}}</h3>
-  <h3 id="tab">{{sub.publish_date}}</h3>
-  <a href="{% url 'details:publication_edit' pk=sub.pk %}">
-    <button type="button" class="btn btn-primary" name="button">Edit</button>
-  </a>
-  <a href="{% url 'details:publication_delete' pk=sub.pk %}">
-    <button type="button" class="btn btn-primary" name="button">Delete</button>
-  </a>
-  {% endfor %}
-</li>
-</ul>
-  <a href = "{% url 'details:publication' %}add">
+
+{% block name %}
+<h2><span style="padding-right: 840px">Publications</span>
+  <a href = "{% url 'details:publication' %}add" style="">
     <button type="button" class="btn btn-primary" name="button">Add</button>
   </a>
+</h2>
+{% endblock %}
+
+{% block content %}
+<script>
+    document.getElementById("pub").classList.add('active');
+    document.getElementById("home").classList.remove('active');
+    document.getElementById("stud").classList.remove('active');
+    document.getElementById("proj").classList.remove('active');
+    document.getElementById("teach").classList.remove('active');
+    document.getElementById("recog").classList.remove('active');
+    document.getElementById("gen").classList.remove('active');
+</script>
+<style media="screen">
+  #list{
+    color:rgb(75,70,90);
+
+  }
+  #icon{
+    font-size: 15px;
+    padding-right: 2px;
+    padding-left: 5px;
+  }
+</style>
+<ul>
+{% for sub in users %}
+  <li>
+    <div id="list">Title - {{sub.title}}<br>Authors - {{sub.Authors}}<br>Journal - {{sub.journal}} - {{sub.journal_volume}} : Page No - {{sub.page_no}} : Publish Date - {{sub.publish_date}}</div>
+    <a href="{% url 'details:publication_edit' pk=sub.pk %}">
+    <i class="material-icons" id="icon">mode_edit</i>Edit
+    </a>
+    <a href="{% url 'details:publication_delete' pk=sub.pk %} " style="color:red">
+      <i class="material-icons" id="icon">delete</i>Delete
+    </a>
+    <hr>
+  </li>
+{% endfor %}
+</ul>
 {% endblock %}

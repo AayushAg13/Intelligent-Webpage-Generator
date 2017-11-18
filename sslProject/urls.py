@@ -16,6 +16,10 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from . import views
+from django.conf.urls.static import static
+from django.conf import settings
+
+
 
 urlpatterns = [
     url(r"^test/$", views.HomePage.as_view(), name="test"),
@@ -33,3 +37,6 @@ urlpatterns = [
     url(r"^profile/(?P<username>\w+)/publication$", views.ProfilePublicationPage, name="profile_publication"),
     url(r"^profile/(?P<username>\w+)/recognition$", views.ProfileRecognitionPage, name="profile_recognition"),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -32,7 +32,7 @@ def Login_User(request):
 
                 if result['success']:
                     login(request, user)
-                    return redirect('/test')
+                    return redirect('/test/about_me')
                 else:
                     return render(request, 'users/login.html', {'error_message': 'Invalid Captcha'})
             else:

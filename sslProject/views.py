@@ -19,8 +19,13 @@ class HomePage(TemplateView):
     def get(self, request, *args, **kwargs):
         if request.method == 'GET':
             if request.user.is_authenticated():
+                try:
+                    profile = ProfileDetails.objects.get(username__username=request.user.username)
+                except ProfileDetails.DoesNotExist:
+                    profile=None
                 context={
-                    'user':request.user
+                    'user':request.user,
+                    'profile':profile,
                 }
                 return render(request , "test.html" , context)
             # else:
@@ -28,7 +33,7 @@ class HomePage(TemplateView):
         return super().get(request, *args, **kwargs)
 
 def List(request):
-    users = ProfileDetails.objects.all()
+    users = ProfileDetails.objects.order_by('name').order_by('department').all()
     context={
         'users': users
     }
@@ -39,7 +44,7 @@ def ProfilePage(request, username):
     return render(request, 'profile.html',{'users':users, 'username':username})
 
 def ProfileTeachingPage(request, username):
-    users = TeachingDetails.objects.filter(username__username=username)
+    users = TeachingDetails.objects.order_by('year').filter(username__username=username)
     return render(request, 'profile_teaching.html',{'users':users, 'username':username})
 
 def ProfilePublicationPage(request, username):
@@ -48,10 +53,28 @@ def ProfilePublicationPage(request, username):
 
 def ProfileStudentPage(request, username):
     users = StudentsDetails.objects.filter(username__username=username)
-    return render(request, 'profile_student.html',{'users':users, 'username':username})
+    btech = users.filter(degree='B-Tech')
+    mtech = users.filter(degree='M-Tech')
+    phd = users.filter(degree='PhD')
+    btech1 = btech.filter(student_status='Continuing')
+    mtech1 = mtech.filter(student_status='Continuing')
+    phd1 = phd.filter(student_status='Continuing')
+    btech2 = btech.filter(student_status='Completed')
+    mtech2 = mtech.filter(student_status='Completed')
+    phd2 = phd.filter(student_status='Completed')
+    context={
+        'username':username,
+        'btech1': btech1,
+        'mtech1': mtech1,
+        'phd1': phd1,
+        'btech2': btech2,
+        'mtech2': mtech2,
+        'phd2': phd2,
+    }
+    return render(request, 'profile_student.html',context)
 
 def ProfileRecognitionPage(request, username):
-    users = ProfileDetails.objects.filter(username__username=username)
+    users = RecognitionDetails.objects.filter(username__username=username)
     return render(request, 'profile_recognition.html',{'users':users, 'username':username})
 
 def ProfileProjectPage(request, username):

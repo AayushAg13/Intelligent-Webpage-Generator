@@ -6,10 +6,7 @@ class AboutForm(ModelForm):
     class Meta:
         model = ProfileDetails
         fields = ("name","designation","department","institute",
-        "office","email","phone", "date_of_birth")
-        widgets = {
-            'date_of_birth': forms.TextInput(attrs={'class': ''}),
-        }
+        "office","email","phone", "date_of_birth", "research_interest", "profile_pic")
 
 class TeachingForm(ModelForm):
     class Meta:
@@ -35,3 +32,18 @@ class StudentsForm(ModelForm):
     class Meta:
         model = StudentsDetails
         fields = ("student_status", "degree","student_name","thesis_title","supervisor")
+
+class EducationForm(ModelForm):
+    class Meta:
+        model = EducationDetails
+        fields = ("degree", "university" ,"year")
+
+class WorkForm(ModelForm):
+    class Meta:
+        model = WorkDetails
+        fields = ("experience", "description")
+
+class CourseForm(ModelForm):
+    class Meta:
+        model = CourseDetails
+        fields = ("messages", "files")

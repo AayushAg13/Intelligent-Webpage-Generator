@@ -1,23 +1,48 @@
 {% extends "dashboard.html" %}
-{% block content %}
-<style>
-#tab { display:inline-block;
-     margin-left: 40px; }
-</style>
-<ul>
-<li>{% for sub in users %}
-  <h2>{{sub.heading}}</h2>
-  <h3 id="tab">{{sub.description}}</h3>
-  <a href="{% url 'details:recognition_edit' pk=sub.pk %}">
-    <button type="button" class="btn btn-primary" name="button">Edit</button>
-  </a>
-  <a href="{% url 'details:recognition_delete' pk=sub.pk %}">
-    <button type="button" class="btn btn-primary" name="button">Delete</button>
-  </a>
-  {% endfor %}
-</li>
-</ul>
-  <a href = "{% url 'details:recognition' %}add">
+
+{% block name %}
+<h2><span style="padding-right: 835px">Recognitions</span>
+  <a href = "{% url 'details:recognition' %}add" style="">
     <button type="button" class="btn btn-primary" name="button">Add</button>
   </a>
+</h2>
+{% endblock %}
+
+{% block content %}
+<script>
+    document.getElementById("pub").classList.remove('active');
+    document.getElementById("home").classList.remove('active');
+    document.getElementById("stud").classList.remove('active');
+    document.getElementById("proj").classList.remove('active');
+    document.getElementById("teach").classList.remove('active');
+    document.getElementById("recog").classList.add('active');
+    document.getElementById("gen").classList.remove('active');
+</script>
+<style media="screen">
+  #list{
+    color:rgb(75,70,90);
+
+  }
+  #icon{
+    font-size: 15px;
+    padding-right: 2px;
+    padding-left: 5px;
+  }
+</style>
+<ul>
+  {% for sub in users %}
+  <li>
+    <span id="list">{{sub.heading}}<br>
+    {{sub.description}}</span>
+  </li>
+  <a href="{% url 'details:recognition_edit' pk=sub.pk %}">
+  <i class="material-icons" id="icon">mode_edit</i>Edit
+  </a>
+  <a href="{% url 'details:recognition_delete' pk=sub.pk %} " style="color:red">
+    <i class="material-icons" id="icon">delete</i>Delete
+  </a>
+<hr>
+  {% endfor %}
+</ul>
+
 {% endblock %}

@@ -15,7 +15,7 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
-
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # Quick-start development settings - unsuitable for production
@@ -133,7 +133,9 @@ if DEBUG:
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
-LOGIN_REDIRECT_URL = "test"
+MEDIA_URL = '/media/'
+
+LOGIN_REDIRECT_URL = "/test/about_me"
 LOGOUT_REDIRECT_URL = "thanks"
 DATE_INPUT_FORMAT = ('%d-%m-%Y','%Y-%m-%d')
 GOOGLE_RECAPTCHA_SECRET_KEY = '6LdCKTgUAAAAALMWep-woaArvtMSQWY_BEfTh4UB'

@@ -1,15 +1,23 @@
 {% extends "profile_base.html" %}
 {% block content %}
-  {% if users. %}
-   <h1>No publications to show</h1>
-  {% endif %}
-  {% for sub in users %}
-  <h2>{{sub.project_title}}</h2>
-  <h3>{{sub.project_description}}</h3>
-  <h3>{{sub.pi}}</h3>
-  <h3>{{sub.co_pi}}</h3>
-  <h3>{{ sub.funding_agency }}</h3>
-  <h3>{{ sub.start_year }}</h3>
-  <h3>{{ sub.end_year }}</h3>
-  {% endfor %}
+  <style media="screen">
+  #list{
+    color:rgb(75,70,90);
+
+  }
+  #icon{
+    font-size: 15px;
+    padding-right: 2px;
+    padding-left: 5px;
+  }
+  </style>
+    <h2>Publications</h2>
+    <ul>
+    {% for sub in users %}
+      <li>
+        <span id="list">Title - {{sub.title}}<br>Authors - {{sub.Authors}}<br>Journal - {{sub.journal}} - {{sub.journal_volume}} : Page No - {{sub.page_no}} : Publish Date - {{sub.publish_date}}</span>
+        <hr>
+      </li>
+    {% endfor %}
+  </ul>
 {% endblock %}

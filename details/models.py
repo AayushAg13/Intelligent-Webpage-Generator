@@ -12,9 +12,22 @@ class ProfileDetails(models.Model):
     email = models.EmailField()
     phone = models.IntegerField()
     date_of_birth = models.DateField()
-
+    research_interest = models.TextField()
+    profile_pic = models.ImageField(upload_to='photos/', blank=True, null=True)
     def __str__(self):
         return self.name
+
+
+class EducationDetails(models.Model):
+    username = models.ForeignKey(User, on_delete=models.CASCADE)
+    degree = models.CharField(max_length=255)
+    university = models.CharField(max_length=255)
+    year = models.CharField(max_length=255)
+
+class WorkDetails(models.Model):
+    username = models.ForeignKey(User, on_delete=models.CASCADE)
+    experience = models.CharField(max_length=255)
+    description = models.CharField(max_length=255)
 
 import datetime
 YEAR_CHOICES = []
@@ -28,14 +41,14 @@ class TeachingDetails(models.Model):
     year=models.CharField(max_length=255, choices=YEAR_CHOICES)
     semester = models.CharField(max_length=255, choices=SEM_CHOICES)
     course_name = models.CharField(max_length=255)
-    course_description = models.CharField(max_length=255)
+    course_description = models.TextField(max_length=255)
 
 class ProjectDetails(models.Model):
     username = models.ForeignKey(User, on_delete=models.CASCADE)
     project_title = models.CharField(max_length=255)
-    project_description=models.CharField(max_length=255)
-    pi = models.CharField(max_length=255)
-    co_pi = models.CharField(max_length=255)
+    project_description=models.TextField(max_length=255)
+    pi = models.CharField(max_length=255, blank=True)
+    co_pi = models.CharField(max_length=255, blank=True)
     funding_agency = models.CharField(max_length=255)
     start_year = models.CharField(max_length=255)
     end_year = models.CharField(max_length=255)
@@ -43,7 +56,7 @@ class ProjectDetails(models.Model):
 class RecognitionDetails(models.Model):
     username = models.ForeignKey(User, on_delete=models.CASCADE)
     heading = models.CharField(max_length=255)
-    description = models.CharField(max_length=255)
+    description = models.TextField(max_length=255)
 
 class PublicationDetails(models.Model):
     username = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -54,7 +67,7 @@ class PublicationDetails(models.Model):
     page_no = models.CharField(max_length=255)
     publish_date = models.CharField(max_length=255)
 
-STATUS_CHOICES=[('Continuing', 'Continuing'),('Completed', 'completed')]
+STATUS_CHOICES=[('Continuing', 'Continuing'),('Completed', 'Completed')]
 STUDENT_DEGREE=[('B-Tech','B-Tech'),('M-Tech','M-Tech'),('PhD','PhD')]
 
 class StudentsDetails(models.Model):
@@ -64,3 +77,8 @@ class StudentsDetails(models.Model):
     student_name = models.CharField(max_length=255)
     thesis_title = models.CharField(max_length=255)
     supervisor = models.CharField(max_length=255)
+
+class CourseDetails(models.Model):
+    course = models.ForeignKey(TeachingDetails, on_delete=models.CASCADE)
+    messages = models.TextField(max_length=255)
+    files = models.FileField(blank=True)

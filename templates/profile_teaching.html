@@ -1,9 +1,18 @@
 {% extends "profile_base.html" %}
 {% block content %}
+<style media="screen">
+  #list{
+    color:rgb(75,70,90);
+
+  }
+</style>
+  <h2>Teachings</h2>
+  <ul>
   {% for sub in users %}
-  <h2>{{sub.year}}</h2>
-  <h3>designation : {{sub.year}}</h3>
-  <h3>Office : {{sub.course_name}}</h3>
-  <h3>department of {{sub.course_description}}</h3>
+    <li>
+      <span id="list">{{sub.year}} : {{sub.semester}} : {{sub.course_name}} : {{sub.course_description}}</span>
+      <hr>
+    </li>
   {% endfor %}
+</ul>
 {% endblock %}

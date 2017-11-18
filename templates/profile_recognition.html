@@ -1,13 +1,24 @@
 {% extends "profile_base.html" %}
 {% block content %}
-  {% for sub in users %}
-  <h2>{{sub.project_title}}</h2>
-  <h3>{{sub.project_description}}</h3>
-  <h3>{{sub.pi}}</h3>
-  <h3>{{sub.co_pi}}</h3>
-  <h3>{{ sub.funding_agency }}</h3>
-  <h3>{{ sub.start_year }}</h3>
-  <h3>{{ sub.end_year }}</h3>
+<h2>Recognitions</h2>
+<style media="screen">
+  #list{
+    color:rgb(75,70,90);
 
+  }
+  #icon{
+    font-size: 15px;
+    padding-right: 2px;
+    padding-left: 5px;
+  }
+</style>
+<ul>
+  {% for sub in users %}
+  <li>
+    <span id="list">{{sub.heading}}<br>
+    {{sub.description}}</span>
+  </li>
+<hr>
   {% endfor %}
+</ul>
 {% endblock %}
