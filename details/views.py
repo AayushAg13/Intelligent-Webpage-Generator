@@ -58,14 +58,24 @@ def About_Me_Edit(request):
 
 @login_required
 def About_Me_Create(request):
-    form = AboutForm(request.POST or None)
-    if form.is_valid():
-        user = User.objects.get(username=request.user.username)
-        temp = form.save(commit=False)
-        temp.username = user
-        temp.save()
-        return redirect('/test/about_me')
-    return render(request,'about_me_edit.html',{'form':form})
+    if request.method == 'POST':
+        form = AboutForm(request.POST, request.FILES)
+        if form.is_valid():
+            user = User.objects.get(username=request.user.username)
+            temp = form.save(commit=False)
+            temp.username = user
+            temp.save()
+            user = User.objects.get(username=request.user.username)
+            return redirect('/test/about_me')
+    else:
+        form = AboutForm()
+    try:
+        profile = ProfileDetails.objects.get(username__username=request.user.username)
+    except ProfileDetails.DoesNotExist:
+        profile=None
+    return render(request, 'about_me_edit.html', {
+        'form': form, 'profile':profile,
+    })
 
 @login_required
 def Education(request):
@@ -440,6 +450,7 @@ def Course(request, pk):
         return redirect('/courses/create')
     context={
         'users':users,
+        'pk':pk,
     }
     return render(request, 'courses.html', context)
 
@@ -452,7 +463,7 @@ def Course_Add(request, pk):
           form.course = instance
           form.save()
           return redirect('/test/teaching/')
-    return render(request,'course_add.html',{'form':form})
+    return render(request,'course_add.html',{'form':form, 'pk':pk})
 
 @login_required
 def Course_Edit(request, pk):
@@ -461,7 +472,7 @@ def Course_Edit(request, pk):
     if form.is_valid():
         form.save()
         return redirect('/test/teaching')
-    return render(request,'education_add.html',{'form':form})
+    return render(request,'education_add.html',{'form':form, 'pk':pk})
 
 @login_required
 def Course_Delete(request, pk):
