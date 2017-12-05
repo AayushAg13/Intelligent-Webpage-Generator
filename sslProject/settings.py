@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'users',
     'bootstrap3',
     'details',
+    'django_social_share',
 ]
 
 MIDDLEWARE = [
@@ -136,6 +137,6 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 MEDIA_URL = '/media/'
 
 LOGIN_REDIRECT_URL = "/test/about_me"
-LOGOUT_REDIRECT_URL = "thanks"
+LOGOUT_REDIRECT_URL = "/"
 DATE_INPUT_FORMAT = ('%d-%m-%Y','%Y-%m-%d')
 GOOGLE_RECAPTCHA_SECRET_KEY = '6LdCKTgUAAAAALMWep-woaArvtMSQWY_BEfTh4UB'

@@ -6,7 +6,7 @@ class AboutForm(ModelForm):
     class Meta:
         model = ProfileDetails
         fields = ("name","designation","department","institute",
-        "office","email","phone", "date_of_birth", "research_interest", "profile_pic")
+        "office","email","phone", "date_of_birth", "research_interest", "profile_pic", "profile_page")
 
 class TeachingForm(ModelForm):
     class Meta:
@@ -21,7 +21,7 @@ class ProjectForm(ModelForm):
 class RecognitionForm(ModelForm):
     class Meta:
         model = RecognitionDetails
-        fields = ("heading", "description")
+        fields = ("description",)
 
 class PublicationForm(ModelForm):
     class Meta:
@@ -47,3 +47,8 @@ class CourseForm(ModelForm):
     class Meta:
         model = CourseDetails
         fields = ("messages", "files")
+
+class MailForm(ModelForm):
+    class Meta:
+        model = Mail
+        fields = ("username", "mail_file")

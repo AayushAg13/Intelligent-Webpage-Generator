@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Bootstrap Material Admin by Bootstrapious.com</title>
+  <title>Dashboard</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="all,follow">
@@ -44,7 +44,7 @@
             <div class="navbar-holder d-flex align-items-center justify-content-between">
               <!-- Navbar Header-->
               <div class="navbar-header">
-                <!-- Navbar Brand --><a href="index.html" class="navbar-brand">
+                <!-- Navbar Brand --><a href="#" class="navbar-brand">
                   <div class="brand-text brand-big"><span>IIT</span><strong>GUWAHATI</strong></div>
                   <div class="brand-text brand-small"><strong>IITG</strong></div></a>
                 <!-- Toggle Button--><a id="toggle-btn" href="#" class="menu-btn active"><span></span><span></span><span></span></a>
@@ -53,31 +53,7 @@
               <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
 
                 <!-- Notifications-->
-                <li class="nav-item dropdown"> <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-bell-o"></i><span class="badge bg-red">12</span></a>
-                  <ul aria-labelledby="notifications" class="dropdown-menu">
-                    <li><a rel="nofollow" href="#" class="dropdown-item">
-                        <div class="notification">
-                          <div class="notification-content"><i class="fa fa-envelope bg-green"></i>You have 6 new messages </div>
-                          <div class="notification-time"><small>4 minutes ago</small></div>
-                        </div></a></li>
-                    <li><a rel="nofollow" href="#" class="dropdown-item">
-                        <div class="notification">
-                          <div class="notification-content"><i class="fa fa-twitter bg-blue"></i>You have 2 followers</div>
-                          <div class="notification-time"><small>4 minutes ago</small></div>
-                        </div></a></li>
-                    <li><a rel="nofollow" href="#" class="dropdown-item">
-                        <div class="notification">
-                          <div class="notification-content"><i class="fa fa-upload bg-orange"></i>Server Rebooted</div>
-                          <div class="notification-time"><small>4 minutes ago</small></div>
-                        </div></a></li>
-                    <li><a rel="nofollow" href="#" class="dropdown-item">
-                        <div class="notification">
-                          <div class="notification-content"><i class="fa fa-twitter bg-blue"></i>You have 2 followers</div>
-                          <div class="notification-time"><small>10 minutes ago</small></div>
-                        </div></a></li>
-                    <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong>view all notifications                                            </strong></a></li>
-                  </ul>
-                </li>
+
 
                 <!-- Logout    -->
                 <li class="nav-item"><a href="/users/logout" class="nav-link logout">Logout<i class="fa fa-sign-out"></i></a></li>
@@ -100,12 +76,11 @@
           <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
           <ul class="list-unstyled">
             <li class="active" id="home"> <a href="/test"><i class="icon-home"></i>Home</a></li>
-            <li><a href="#dashvariants" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Dropdown </a>
+            <li><a href="#dashvariants" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>About Me</a>
               <ul id="dashvariants" class="collapse list-unstyled">
-                <li><a href="#">Page</a></li>
-                <li><a href="#">Page</a></li>
-                <li><a href="#">Page</a></li>
-                <li><a href="#">Page</a></li>
+                <li><a href="/test/about_me/">Personal Details</a></li>
+                <li><a href="/test/work">Work Experience</a></li>
+                <li><a href="/test/education">Education</a></li>
               </ul>
             </li>
             <li id="pub"> <a href="{% url 'details:publication' %}"><i class="material-icons">assignment</i>Publications</a></li>
@@ -115,7 +90,7 @@
             <li id="recog"> <a href="{% url 'details:recognition'%}"><i class="material-icons">label</i>Recognitions</a></li>
           </ul>
             <ul class="list-unstyled">
-            <li id="gen"> <a href="/profile/{{user.username}}" target='_blank'> <i class="icon-padnote"></i>Generate Page</a></li>
+            <li id="gen"> <a href="/profile/{{user.username}}" target='_blank'> <i class="icon-padnote"></i>View Page</a></li>
           </ul>
         </nav>
         <div class="content-inner">

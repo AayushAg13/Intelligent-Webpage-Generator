@@ -5,10 +5,13 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from details.models import *
-
+from details.forms import *
 @login_required
-class TestPage(TemplateView):
-    template_name = 'test.html'
+def TestPage(request):
+    user1 = User.objects.get(username=username)
+    notifs = NotificationDetails.objects.filter(username=user1)
+    context={'notifs': notifs,}
+    return render(request, 'test.html', context)
 
 class ThanksPage(TemplateView):
     template_name = 'thanks.html'
@@ -23,7 +26,10 @@ class HomePage(TemplateView):
                     profile = ProfileDetails.objects.get(username__username=request.user.username)
                 except ProfileDetails.DoesNotExist:
                     profile=None
+                user1 = User.objects.get(username=request.user.username)
+                notifs = NotificationDetails.objects.filter(username=user1)
                 context={
+                    'notifs': notifs,
                     'user':request.user,
                     'profile':profile,
                 }
@@ -41,7 +47,10 @@ def List(request):
 
 def ProfilePage(request, username):
     users = ProfileDetails.objects.get(username__username=username)
-    return render(request, 'profile.html',{'users':users, 'username':username})
+    education = EducationDetails.objects.filter(username__username = username)
+    work = WorkDetails.objects.filter(username__username = username)
+    print(education)
+    return render(request, 'profile.html',{'users':users, 'username':username, 'work':work, 'education':education})
 
 def ProfileTeachingPage(request, username):
     users = TeachingDetails.objects.order_by('year').filter(username__username=username)
@@ -80,3 +89,14 @@ def ProfileRecognitionPage(request, username):
 def ProfileProjectPage(request, username):
     users = ProjectDetails.objects.filter(username__username=username)
     return render(request, 'profile_project.html',{'users':users, 'username':username})
+
+def Mail(request):
+    if request.method == 'POST':
+        form = MailForm(request.POST, request.FILES)
+        if form.is_valid():
+            temp.save()
+    else:
+        form = MailForm()
+    return render(request, 'mails.html', {
+        'form': form,
+    })

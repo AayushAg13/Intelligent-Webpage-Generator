@@ -8,11 +8,13 @@ urlpatterns = [
     url(r"^about_me/$", views.About_Me,name='about_me'),
     url(r"^about_me/edit$", views.About_Me_Edit,name='about_me_edit'),
     url(r"^about_me/create$", views.About_Me_Create, name='about_me_create'),
+    url(r'^about_me/(?P<pk>\d+)/edit$', views.About_Me_Edit2, name='about_me_edit2'),
 
     url(r"^education/$", views.Education,name='education'),
     url(r'^education/(?P<pk>\d+)/edit$', views.Education_Edit, name='education_edit'),
     url(r"^education/add$", views.Education_Add, name='education_add'),
     url(r'^education/(?P<pk>\d+)/delete$', views.Education_Delete, name='education_delete'),
+    url(r"^link$", views.Education_Link, name='link'),
 
     url(r"^work/$", views.Work,name='work'),
     url(r'^work/(?P<pk>\d+)/edit$', views.Work_Edit, name='work_edit'),
@@ -39,10 +41,17 @@ urlpatterns = [
     url(r'^publication/(?P<pk>\d+)/edit$', views.Publication_Edit, name='publication_edit'),
     url(r"^publication/add$", views.Publication_Add, name='publication_add'),
     url(r'^publication/(?P<pk>\d+)/delete$', views.Publication_Delete, name='publication_delete'),
+    url(r"^publication/add/(?P<pk>\d+)$", views.Publication_Add2, name='publication_add2'),
 
     url(r"^students/$", views.Students,name='students'),
     url(r'^students/(?P<pk>\d+)/edit$', views.Students_Edit, name='students_edit'),
     url(r"^students/add$", views.Students_Add, name='students_add'),
     url(r'^students/(?P<pk>\d+)/delete$', views.Students_Delete, name='students_delete'),
 
+    url(r'^course/(?P<pk>\d+)/$', views.Course, name='course_'),
+    url(r'^course/(?P<pk>\d+)/add$', views.Course_Add, name='course_'),
+    url(r'^course/(?P<pk>\d+)/edit$', views.Course_Edit, name='course_'),
+    url(r'^course/(?P<pk>\d+)/delete$', views.Course_Delete, name='course_'),
+
+    url(r'^delete/(?P<pk>\d+)$', views.Notif_Delete, name='delete'),
 ]

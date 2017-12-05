@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from details.models import *
 from details.forms import *
 from django.core.exceptions import ObjectDoesNotExist
+import requests
+from bs4 import BeautifulSoup
 
 @login_required
 def About_Me(request):
@@ -19,20 +21,6 @@ def About_Me(request):
     }
     return render(request, 'about_me.html', context)
 
-# @login_required
-# def About_Me_Edit(request):
-#     user_name = request.user.username
-#     try:
-#         instance = ProfileDetails.objects.get(username__username=user_name)
-#     except ObjectDoesNotExist:
-#         return redirect('/test/about_me/create')
-#
-#     form = AboutForm(request.POST or None, instance=instance)
-#     if form.is_valid():
-#           form.save()
-#           return redirect('/test/about_me')
-#     return render(request,'about_me_edit.html',{'form':form})
-
 @login_required
 def About_Me_Edit(request):
     user_name = request.user.username
@@ -45,6 +33,33 @@ def About_Me_Edit(request):
         form = AboutForm(request.POST, request.FILES, instance=instance)
         if form.is_valid():
             form.save()
+            return redirect('/test/about_me')
+    else:
+        form = AboutForm(instance=instance)
+    try:
+        profile = ProfileDetails.objects.get(username__username=request.user.username)
+    except ProfileDetails.DoesNotExist:
+        profile=None
+    return render(request, 'about_me_edit.html', {
+        'form': form, 'profile':profile,
+    })
+
+@login_required
+def About_Me_Edit2(request, pk):
+    user_name = request.user.username
+    try:
+        instance = ProfileDetails.objects.get(username__username=user_name)
+    except ObjectDoesNotExist:
+        return redirect('/test/about_me/create')
+
+    notif = NotificationDetails.objects.get(pk=pk)
+    instance.designation = notif.arg1
+
+    if request.method == 'POST':
+        form = AboutForm(request.POST, request.FILES, instance=instance)
+        if form.is_valid():
+            form.save()
+            notif.delete()
             return redirect('/test/about_me')
     else:
         form = AboutForm(instance=instance)
@@ -121,6 +136,78 @@ def Education_Add(request):
     except ProfileDetails.DoesNotExist:
         profile=None
     return render(request,'education_add.html',{'form':form, 'profile':profile})
+
+@login_required
+def Education_Link(request):
+    user = User.objects.get(username=request.user.username)
+    try:
+        profile = ProfileDetails.objects.get(username__username=request.user.username)
+    except ProfileDetails.DoesNotExist:
+        profile=None
+    if(profile.profile_page != ""):
+        page = requests.get(profile.profile_page)
+        soup = BeautifulSoup(page.content, 'html.parser')
+        for item in soup.find_all('div', {'class':'fh5co-content-inner text-center'}):
+    	    i = item('div', {'class':'fh5co-icon'})[0]
+    	    for j in i('p'):
+                 form = EducationForm(None)
+                 temp = form.save(commit=False)
+                 temp.username = user
+                 x = j.text
+                 x = x.split()
+                 temp.degree = ""+x[0]+ " "+x[1]
+                 temp.university = ""
+                 for z in range(2,len(x)-1):
+                     temp.university += "" + x[z] + " "
+                 temp.year = x[len(x)-1]
+                 temp.save()
+        for item in soup.find_all('div', {'class':'fh5co-content-inner text-center'}):
+    	    i = item('div', {'class':'fh5co-icon'})[1]
+    	    for j in i('p'):
+                 form = WorkForm(None)
+                 temp = form.save(commit=False)
+                 temp.username = user
+                 x = j.text
+                 x = x.split()
+                 if j.find('strong'):
+                     temp.experience = j.find('strong').text
+
+                 for z in range(0,len(x)):
+                     temp.description += "" + x[z] + " "
+                 temp.save()
+
+        x = soup.find_all('i', {'class':'icon-calendar-check-o'})
+        if len(x) > 0:
+            x = x[0]
+        x = x.parent.parent
+        for item in x('li'):
+            string = item.text
+            list = string.split('&diam;')
+            list[0] = list[0].strip()
+            form = TeachingForm(None)
+            temp = form.save(commit=False)
+            temp.username = user
+            temp.year = list[0]
+            temp.semester = list[1].strip()
+            list2 = list[2].split(':')
+            temp.course_name = list2[0].strip()
+            temp.course_description = list2[1].strip()
+            temp.save()
+
+        x = soup.find_all('i', {'class':'icon-shield'})
+        if len(x) > 0:
+            x = x[0]
+
+        x = x.parent.parent
+        for item in x('li'):
+            form = RecognitionForm(None)
+            temp = form.save(commit=False)
+            temp.username = user
+            temp.description = item.text
+            temp.save()
+        return redirect('/test/education')
+    else:
+        return redirect('/test')
 
 @login_required
 def Education_Delete(request, pk):
@@ -209,6 +296,21 @@ def Teaching_Edit(request, pk):
 
 @login_required
 def Teaching_Add(request):
+    form = TeachingForm(request.POST or None)
+    if form.is_valid():
+        user = User.objects.get(username=request.user.username)
+        temp = form.save(commit=False)
+        temp.username = user
+        temp.save()
+        return redirect('/test/teaching')
+    try:
+        profile = ProfileDetails.objects.get(username__username=request.user.username)
+    except ProfileDetails.DoesNotExist:
+        profile=None
+    return render(request,'teaching_add.html',{'form':form, 'profile':profile})
+
+@login_required
+def Teaching_Add2(request):
     form = TeachingForm(request.POST or None)
     if form.is_valid():
         user = User.objects.get(username=request.user.username)
@@ -378,6 +480,31 @@ def Publication_Delete(request, pk):
     return redirect('/test/publication')
 
 @login_required
+def Publication_Add2(request, pk):
+    user_name = request.user.username
+    try:
+        instance = ProfileDetails.objects.get(username__username=user_name)
+    except ObjectDoesNotExist:
+        return redirect('/test/about_me/create')
+
+    notif = NotificationDetails.objects.get(pk=pk)
+    if request.method == 'POST':
+        form = PublicationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            notif.delete()
+            return redirect('/test/about_me')
+    else:
+        form = PublicationForm(initial={'Authors': instance.name, 'title': notif.arg1, 'journal': notif.arg2})
+    try:
+        profile = ProfileDetails.objects.get(username__username=request.user.username)
+    except ProfileDetails.DoesNotExist:
+        profile=None
+    return render(request, 'publication_add.html', {
+        'form': form, 'profile':profile,
+    })
+
+@login_required
 def Students(request):
     user_name = request.user.username
     try:
@@ -448,11 +575,12 @@ def Course(request, pk):
         users = CourseDetails.objects.filter(course=courses)
     except ObjectDoesNotExist:
         return redirect('/courses/create')
+    print(users)
     context={
         'users':users,
         'pk':pk,
     }
-    return render(request, 'courses.html', context)
+    return render(request, 'course.html', context)
 
 @login_required
 def Course_Add(request, pk):
@@ -463,7 +591,7 @@ def Course_Add(request, pk):
           form.course = instance
           form.save()
           return redirect('/test/teaching/')
-    return render(request,'course_add.html',{'form':form, 'pk':pk})
+    return render(request,'course_edit.html',{'form':form, 'pk':pk})
 
 @login_required
 def Course_Edit(request, pk):
@@ -472,9 +600,14 @@ def Course_Edit(request, pk):
     if form.is_valid():
         form.save()
         return redirect('/test/teaching')
-    return render(request,'education_add.html',{'form':form, 'pk':pk})
+    return render(request,'course_edit.html',{'form':form, 'pk':pk})
 
 @login_required
 def Course_Delete(request, pk):
     instance = CourseDetails.objects.get(pk=pk).delete()
     return redirect('/test/teaching')
+
+@login_required
+def Notif_Delete(request, pk):
+    instance = NotificationDetails.objects.get(pk=pk).delete()
+    return redirect('/test')

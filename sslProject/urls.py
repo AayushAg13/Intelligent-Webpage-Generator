@@ -36,6 +36,7 @@ urlpatterns = [
     url(r"^profile/(?P<username>\w+)/project$", views.ProfileProjectPage, name="profile_project"),
     url(r"^profile/(?P<username>\w+)/publication$", views.ProfilePublicationPage, name="profile_publication"),
     url(r"^profile/(?P<username>\w+)/recognition$", views.ProfileRecognitionPage, name="profile_recognition"),
+    url(r"^mail/$", views.Mail, name="mail"),
 ]
 
 if settings.DEBUG:

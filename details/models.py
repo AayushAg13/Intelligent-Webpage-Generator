@@ -14,6 +14,7 @@ class ProfileDetails(models.Model):
     date_of_birth = models.DateField()
     research_interest = models.TextField()
     profile_pic = models.ImageField(upload_to='photos/', blank=True, null=True)
+    profile_page = models.CharField(blank=True, max_length=1000)
     def __str__(self):
         return self.name
 
@@ -55,7 +56,6 @@ class ProjectDetails(models.Model):
 
 class RecognitionDetails(models.Model):
     username = models.ForeignKey(User, on_delete=models.CASCADE)
-    heading = models.CharField(max_length=255)
     description = models.TextField(max_length=255)
 
 class PublicationDetails(models.Model):
@@ -82,3 +82,14 @@ class CourseDetails(models.Model):
     course = models.ForeignKey(TeachingDetails, on_delete=models.CASCADE)
     messages = models.TextField(max_length=255)
     files = models.FileField(blank=True)
+
+class NotificationDetails(models.Model):
+    username = models.ForeignKey(User, on_delete=models.CASCADE)
+    type = models.IntegerField(blank=True)
+    message = models.CharField(max_length=255)
+    arg1 = models.CharField(max_length=255, blank=True)
+    arg2 = models.CharField(max_length=255, blank=True)
+
+class Mail(models.Model):
+    username = models.ForeignKey(User, on_delete=models.CASCADE)
+    mail_file = models.FileField(blank=True)
